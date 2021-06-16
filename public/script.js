@@ -1,9 +1,11 @@
 const name = document.getElementById('name');
 const form = document.getElementById('form');
+let clickCount = 0;
 
 form.addEventListener('submit', e => {
     e.preventDefault(); // stop page refreshing
-    if (name.value == '')
+    clickCount++;
+    if (name.value == '' || clickCount != 1)
         return;
     fetch('/chat/create', {
         method: 'POST',

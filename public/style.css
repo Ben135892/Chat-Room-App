@@ -25,6 +25,10 @@ body {
     margin: 20px auto;
 }
 
+.error {
+    color: red;
+}
+
 #chat {
     background-color: lightgray;
     border-radius: 5px;

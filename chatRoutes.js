@@ -30,21 +30,19 @@ router.post('/join', async (req, res) => {
         const roomID = req.session.data.room;
         const name = req.body.name;
         const room = await Room.findById(roomID);
-        if (!room) {
-            res.json({ redirect: '/' });
-            return;
-        }
         const user = new User({ name: name });
         user.room = room.id;
         room.users.push(user.id);
-        await user.save();
         await room.save();
+        await user.save();
         req.session.data.name = name;
         req.session.data.id = user.id;
-        res.json({ redirect: '/chat/' + roomID });
+        res.json({ redirect: '/chat/' + roomID, success: true });
     }
     catch(err) {
         console.log(err);
+        res.json({ success: false, message: 'Room does not exist' });
+        return;
     }
 });
 

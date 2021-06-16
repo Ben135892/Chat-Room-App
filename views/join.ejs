@@ -13,16 +13,22 @@
             <label for="name">Name: </label>
             <input class="input" type="text" id="name" name="name">
             <button class="btn" type="submit">Enter Room</button>
+            <p class="error"></p>
         </form>
+        <a href='/'>Create a room</a>
     </div>
 </body>
 
 <script>
     const name = document.getElementById('name');
     const form = document.getElementById('form');
+    const error = document.getElementsByClassName('error')[0];
+    let clickCount = 0;
+
     form.addEventListener('submit', e => {
         e.preventDefault(); // stop page refreshing
-        if (name.value == '')
+        clickCount++;
+        if (name.value == '' || clickCount != 1)
             return;
         fetch('/chat/join', {
             method: 'POST',
@@ -34,7 +40,10 @@
         })
         .then(response => response.json())
         .then(data => {
-            window.location.href = data.redirect;
+            if (data.success)
+                window.location.href = data.redirect;
+            else 
+                error.innerText = data.message;
         })
         .catch(err => console.log(err));
     });
