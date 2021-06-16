@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join a Room</title>
+    <link  rel="stylesheet" href="style.css">
+    <title>Create a Room</title>
 </head>
 <body>
-    <h1>Hey</h1>
-    <label for="name">Name: </label>
-    <input type="text" id="name" name="name">
-    <button id="create">Create a room</button>
+    <div class="container">
+        <form id="form">
+            <h1>Create a Room</h1>
+            <label for="name">Name: </label>
+            <input autocomplete="off" class="input" type="text" id="name" name="name">
+            <button class="btn">Create Room</button>
+        </form>
+        
+    </div>
 </body>
 <script src="script.js"></script>
 </html>

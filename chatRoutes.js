@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('../models/user');
-const Room = require('../models/room');
+const User = require('./models/user');
+const Room = require('./models/room');
 
 const router = express.Router();
 
@@ -30,6 +30,10 @@ router.post('/join', async (req, res) => {
         const roomID = req.session.data.room;
         const name = req.body.name;
         const room = await Room.findById(roomID);
+        if (!room) {
+            res.json({ redirect: '/' });
+            return;
+        }
         const user = new User({ name: name });
         user.room = room.id;
         room.users.push(user.id);

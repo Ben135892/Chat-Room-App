@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Room = require('./models/room');
 
-const chatRoutes = require('./routes/chatRoutes');
+const chatRoutes = require('./chatRoutes');
 const socketEvents = require('./socketEvents');
 
 const app = express();

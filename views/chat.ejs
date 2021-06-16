@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="/style.css">
     <title>Chat</title>
 </head>
 <body>
-    <h1>Welcome <%= name %></h1>
-    <div id="chat">
-        <div id="chat-messages">
+    <div class="container">
+        <h1>Welcome <%= name %></h1>
+        <div id="chat">
+            <div id="chat-messages">
+            </div>
+            <form id="form">
+                <input autocomplete="off" type="text" id="message" placeholder="Type message">
+                <button type="submit">Send</button>
+            </form>
         </div>
-        <form id="form">
-            <input autocomplete="off" type="text" id="message" placeholder="Type message">
-            <button type="submit">Send</button>
-        </form>
+        <input type="hidden" id="hidden" value="<%= id %>">
     </div>
-    <input type="hidden" id="hidden" value="<%= id %>">
 </body>
 </html>
 
@@ -36,13 +39,16 @@
         const p = document.createElement('p');
         p.innerText = msg;
         chat.appendChild(p);
+        chat.scrollTop = chat.scrollHeight;
     };
 
     form.addEventListener('submit', e => {
         e.preventDefault();
-        message.value = '';
-        displayMessage(message.value);
+        if (message.value == '')
+            return;
+        displayMessage('You: ' + message.value);
         socket.emit('message', { message: message.value });
+        message.value = '';
     });
 
     socket.on('message', message => {

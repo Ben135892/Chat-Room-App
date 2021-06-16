@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="/style.css">
     <title>Enter name</title>
 </head>
 <body>
-    <label for="name">Name: </label>
-    <input type="text" id="name" name="name">
-    <button id="enter">Enter Room</button>
+    <div class="container">
+        <form id="form">
+            <label for="name">Name: </label>
+            <input class="input" type="text" id="name" name="name">
+            <button class="btn" type="submit">Enter Room</button>
+        </form>
+    </div>
 </body>
 
 <script>
     const name = document.getElementById('name');
-    const enter = document.getElementById('enter');
-    enter.addEventListener('click', e => {
+    const form = document.getElementById('form');
+    form.addEventListener('submit', e => {
         e.preventDefault(); // stop page refreshing
+        if (name.value == '')
+            return;
         fetch('/chat/join', {
             method: 'POST',
             headers: {

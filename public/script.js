@@ -1,9 +1,10 @@
 const name = document.getElementById('name');
-const create = document.getElementById('create');
+const form = document.getElementById('form');
 
-create.addEventListener('click', e => {
-    console.log('d');
+form.addEventListener('submit', e => {
     e.preventDefault(); // stop page refreshing
+    if (name.value == '')
+        return;
     fetch('/chat/create', {
         method: 'POST',
         headers: {
