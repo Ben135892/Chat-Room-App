@@ -3,9 +3,6 @@ const session = require('express-session');
 const socketio = require('socket.io');
 const mongoose = require('mongoose');
 
-const User = require('./models/user');
-const Room = require('./models/room');
-
 const chatRoutes = require('./chatRoutes');
 const socketEvents = require('./socketEvents');
 
@@ -17,7 +14,6 @@ const db = process.env.CONNECTION_STRING;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }) // to stop warnings
 .then(() => {
     const server = app.listen(3000);
-
     const io = socketio(server);
     socketEvents(io);
 })
@@ -34,10 +30,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + 'public/index.html');
-});
 
 app.use('/chat', chatRoutes);
 

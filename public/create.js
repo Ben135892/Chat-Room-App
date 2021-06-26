@@ -1,12 +1,12 @@
 const name = document.getElementById('name');
 const form = document.getElementById('form');
-let clickCount = 0;
+let clickCount = 0; // don't allow multiple form submits
 
 form.addEventListener('submit', e => {
     e.preventDefault(); // stop page refreshing
-    clickCount++;
-    if (name.value == '' || clickCount != 1)
+    if (name.value == '' || clickCount >= 1) 
         return;
+    clickCount++;
     fetch('/chat/create', {
         method: 'POST',
         headers: {
